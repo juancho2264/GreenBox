@@ -37,13 +37,59 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 4. Manejo del Formulario Corporativo
+    // 4. Manejo del Formulario Corporativo con Formspree
     const contactForm = document.getElementById('contact-form');
-    if(contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); 
-            alert('¡Consulta enviada correctamente! Nos pondremos en contacto a la brevedad.');
-            contactForm.reset(); 
+    const modal = document.getElementById('success-modal');
+    const modalClose = document.getElementById('modal-close');
+
+    if (contactForm && modal) {
+
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const btn = contactForm.querySelector('.btn-submit-glow');
+            btn.textContent = 'ENVIANDO...';
+            btn.disabled = true;
+
+            try {
+                const data = new FormData(contactForm);
+                const response = await fetch('https://formspree.io/f/xgoddabn', {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    contactForm.reset();
+                    modal.classList.add('modal-active');
+                } else {
+                    alert('Hubo un problema al enviar. Por favor intentá de nuevo.');
+                }
+            } catch (error) {
+                alert('Error de conexión. Revisá tu internet e intentá de nuevo.');
+            } finally {
+                btn.textContent = 'ENVIAR CONSULTA';
+                btn.disabled = false;
+            }
+        });
+
+        // Cerrar modal con el botón
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('modal-active');
+        });
+
+        // Cerrar modal haciendo clic fuera del cuadro
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('modal-active');
+            }
+        });
+
+        // Cerrar modal con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modal.classList.remove('modal-active');
+            }
         });
     }
 

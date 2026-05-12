@@ -315,12 +315,113 @@ nav ul li a.active { border-bottom: 2px solid var(--primary-green); }
 .btn-submit-glow:hover { box-shadow: 0 0 35px rgba(96, 180, 49, 0.4); background-color: var(--primary-green-dark); }
 .btn-submit-glow:active { transform: scale(0.95); }
 
-/* Footer */
+/* Footer caja animada */
+.footer-logo-block {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.footer-box-anim {
+    width: 80px;
+    flex-shrink: 0;
+}
+.box-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Footer principal */
 footer { background-color: var(--darker-bg); color: var(--white); padding: 50px 0 20px; border-top: 1px solid #111;}
 .footer-grid { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
 .footer-desc { max-width: 500px; text-align: right;}
 .footer-desc p { font-size: 13px; color: #888;}
 .footer-bottom { text-align: center; font-size: 13px; color: #444; border-top: 1px solid #111; padding-top: 20px; }
+
+/* =====================================================
+   MODAL DE CONFIRMACIÓN
+   ===================================================== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.modal-overlay.modal-active {
+    display: flex;
+    animation: fadeInOverlay 0.3s ease;
+}
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.modal-box {
+    background-color: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-top: 4px solid var(--primary-green);
+    border-radius: 12px;
+    padding: 50px 40px;
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    animation: slideUpModal 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(96, 180, 49, 0.08);
+}
+@keyframes slideUpModal {
+    from { opacity: 0; transform: translateY(40px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-icon {
+    width: 72px;
+    height: 72px;
+    background-color: var(--primary-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    box-shadow: 0 0 30px rgba(96, 180, 49, 0.4);
+}
+.modal-icon i {
+    font-size: 32px;
+    color: #fff;
+}
+
+.modal-box h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+.modal-box p {
+    font-size: 16px;
+    color: #aaa;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+.modal-close-btn {
+    background-color: var(--primary-green);
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.modal-close-btn:hover { background-color: var(--primary-green-dark); }
+.modal-close-btn:active { transform: scale(0.95); }
 
 /* =====================================================
    RESPONSIVE — TABLET (≤ 992px)
